@@ -3,14 +3,10 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './Pages/Home'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import Newsfeed from './Pages/Newsfeed';
+import Racism from './Pages/Racism';
+import ReadFeed from './Pages/ReadFeed';
+import Report from './Pages/Report';
 const Stack = createNativeStackNavigator();
 const App = () => {
   return (
@@ -19,6 +15,26 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={Home}
+          options={{ title: 'Welcome', headerShown: false }}
+        />
+        <Stack.Screen
+          name="Newsfeed"
+          component={Newsfeed}
+          options={{ title: 'Welcome', headerShown: false }}
+        />
+        <Stack.Screen
+          name="Racism"
+          component={Racism}
+          options={{ title: 'Welcome', headerShown: false }}
+        />
+        <Stack.Screen
+          name="ReadFeed"
+          component={ReadFeed}
+          options={{ title: 'Welcome', headerShown: false }}
+        />
+        <Stack.Screen
+          name="Report"
+          component={Report}
           options={{ title: 'Welcome', headerShown: false }}
         />
       </Stack.Navigator>

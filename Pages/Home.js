@@ -23,8 +23,6 @@ const slides = [
     'https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
     'https://images.unsplash.com/photo-1488554378835-f7acf46e6c98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
 ]
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
 const TYPES = [{
     icon: require('../assets/images/individual.png'),
     bg: require('../assets/images/individual_pattern.png'),
@@ -51,18 +49,12 @@ const NEWSFEED = [{
     BG: 'https://static.euronews.com/articles/stories/04/73/52/50/1052x701_cmsv2_9d063823-a3f7-5270-b726-17f9b3041a64-4735250.jpg',
     label: "People light flares as they gather in Milan"
 },]
-const Home = () => {
-    const [imgActive, setImgActive] = useState(0)
-    const [inputValue, setValue] = useState('')
+const Home = (props) => {
     const [aboutOpen, setAboutOpen] = useState(false)
     const [hotspotModal, setHotspotModal] = useState(false)
-    const onchange = (nativeEvent) => {
-    }
-    const testEvent = (p) => {
-        console.log('Test >>> ', p)
-    }
     return (
         <View style={styles.container}>
+            {/* About modal */}
             <Modal animationType="slide"
                 transparent={true}
                 visible={aboutOpen}>
@@ -70,6 +62,9 @@ const Home = () => {
                     setAboutOpen(false)
                 }} />
             </Modal >
+            {/* End About Modal */}
+
+            {/* Map Modal */}
             <Modal animationType="slide"
                 transparent={true}
                 visible={hotspotModal} >
@@ -77,25 +72,42 @@ const Home = () => {
                     setHotspotModal(false)
                 }} />
             </Modal>
+            {/* End Map Modal */}
+
+            {/* Main Page */}
             <SafeAreaView style={styles.wrap} >
+                {/* Header */}
                 <View style={styles.homeHeader}>
+                    {/* Logo */}
                     <View style={styles.logoContainer}>
                         <View style={styles.logoWrapper}>
                             <Typography variant="logo" text="Zirra" />
                             <View style={styles.line}></View>
                         </View>
-
                         <MultipleShadows style={styles.innerShadow} shadowStyles={styles.shadows} count={styles.shadows.length}>
                             <Image style={{ width: 44, height: 44 }} source={require('../assets/images/logo.png')} />
                         </MultipleShadows>
                     </View>
+                    {/* ... */}
+
+                    {/* Text */}
                     <Typography variant="header" text="Zimele Racism Reporting" />
                     <Typography variant="body1" text="This App works as a racism incident reporting tool that allows individuals to report cases of racism countrywide." />
+                    {/* ... */}
+
+                    {/* Buttons */}
                     <View style={styles.headerButtonsW}>
-                        <InputButton variant="primary" text="REPORT RACISM" />
+                        <InputButton onPress={() => {
+                            props.navigation.navigate('Report')
+                        }} variant="primary" text="REPORT RACISM" />
+                        <View style={{ width: 10, height: '100%' }} />
                         <InputButton text="ABOUT" onPress={() => setAboutOpen(true)} />
                     </View>
+                    {/* ... */}
                 </View>
+                {/* ... */}
+
+                {/* Scroll */}
                 <ScrollView style={styles.homeContent}>
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Types of Racism" /></View>
@@ -119,9 +131,13 @@ const Home = () => {
 
                     </ScrollView>
                 </ScrollView>
+                {/* ... */}
+
+                {/* Hotspot Button */}
                 <View style={styles.buttonWrapper}>
                     <InputButton onPress={() => setHotspotModal(true)} text="REPORT HOTPOTS" />
                 </View>
+                {/* ... */}
             </SafeAreaView>
         </View>
     )
