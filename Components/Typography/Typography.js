@@ -39,7 +39,7 @@ const Typography = ({ variant, text, priority, c }) => {
         case 'body2':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.bodyTwo}>{text}</Text>
+                    <Text style={{color: c === 'light' ? "#ffffff" : 'black' ,...styles.bodyTwo}}>{text}</Text>
                 </View>)
             break;
         case 'button':
@@ -100,8 +100,7 @@ const styles = StyleSheet.create({
     },
     bodyTwo: {
         fontStyle: "normal",
-        fontFamily: "Montserrat-Bold",
-        color: "#ffffff",
+        fontFamily: "Montserrat-SemiBold",
         fontSize: 16,
         textAlign: 'left',
     },

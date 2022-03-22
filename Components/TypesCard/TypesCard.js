@@ -8,7 +8,7 @@ const TypesCard = (props) => {
                 <Image resizeMode='contain' style={styles.image} source={props.image} />
             </ImageBackground>
             <View style={styles.details}>
-                <Typography variant="body2" text={props.label} />
+                <Typography c="light" variant="body2" text={props.label} />
             </View>
         </TouchableOpacity>
     )

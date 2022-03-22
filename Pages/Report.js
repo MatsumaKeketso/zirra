@@ -16,14 +16,6 @@ import { check, checkNotifications, request, PERMISSIONS, RESULTS } from 'react-
 import CheckMark from '../Components/CheckMark/CheckMark'
 import DeviceInfo from 'react-native-device-info';
 
-const radioButtonsData = [{
-    label: 'Yes',
-}, {
-    label: 'No'
-}, {
-    label: 'Not sure'
-}];
-
 const WIDTH = Dimensions.get('window').width
 const incidentFormData = {
     whatProvince: '',
@@ -241,7 +233,6 @@ const Report = (props) => {
         DeviceInfo.getFingerprint().then(res => {
             console.log(res, payload)
             firestore().collection('reports').add(payload).then((doc) => {
-                console.log(doc)
              }).catch(err => console.log(err))
         })
         // 
@@ -306,7 +297,7 @@ const Report = (props) => {
                         <Typography variant="subHeader" text={activeSlide > 4 ? "Tell us about yourself" : "Incident Details"} />
                     </View>
                     <View>
-                        <Typography variant="body1" text={`Step ${activeSlide > 4 ? (activeSlide + 1) - 5 : activeSlide + 1} / ${activeSlide > 4 ? '2' : '5'}`} />
+                        <Typography variant="body1" text={`Step ${activeSlide > 4 ? (activeSlide ) - 5 : activeSlide + 1} / ${activeSlide > 4 ? '2' : '5'}`} />
                     </View>
                 </View>
                 <ScrollView
