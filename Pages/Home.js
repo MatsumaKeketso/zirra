@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     SafeAreaView,
     ScrollView,
@@ -6,7 +6,10 @@ import {
     View,
     Dimensions,
     Image,
-    Modal
+    Modal,
+    StatusBar,
+    BackHandler,
+    Alert
 } from 'react-native';
 import Swiper from "react-native-swiper";
 import InputButton from "../Components/Button/Button";
@@ -18,11 +21,8 @@ import Chip from "../Components/Chip/Chip";
 import NewsfeedCard from "../Components/NewsfeedCard/NewsfeedCard";
 import About from "../Components/AboutApp/About";
 import Hotspots from "../Components/Hotspots/Hotspots";
-const slides = [
-    'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80',
-    'https://images.unsplash.com/photo-1563089145-599997674d42?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-    'https://images.unsplash.com/photo-1488554378835-f7acf46e6c98?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80'
-]
+import globals from "./globals.styles";
+
 const TYPES = [{
     icon: require('../assets/images/individual.png'),
     bg: require('../assets/images/individual_pattern.png'),
@@ -52,8 +52,39 @@ const NEWSFEED = [{
 const Home = (props) => {
     const [aboutOpen, setAboutOpen] = useState(false)
     const [hotspotModal, setHotspotModal] = useState(false)
+
+    useEffect(() => {
+        // const backHandler = BackHandler.addEventListener(
+        //     "hardwareBackPress",
+        //     () => {
+        //         if (aboutOpen) {
+        //             console.log('about open')
+        //             setAboutOpen(false)
+        //             return true
+        //         } else if (hotspotModal) {
+        //             console.log('hotspot open')
+        //             setHotspotModal(false)
+        //             return true
+        //         } else {
+        //             Alert.alert("Exiting Zirra", "Exit App?", [
+        //                 {
+        //                     text: "Cancel",
+        //                     onPress: () => null,
+        //                     style: "cancel"
+        //                 },
+        //                 { text: "YES", onPress: () => BackHandler.exitApp() }
+        //             ]);
+        //             return true;
+        //         }
+
+        //     }
+        // );
+
+        // return () => backHandler.remove();
+    }, []);
     return (
         <View style={styles.container}>
+            <StatusBar backgroundColor="#fff" barStyle="#000" />
             {/* About modal */}
             <Modal animationType="slide"
                 transparent={true}
@@ -77,7 +108,7 @@ const Home = (props) => {
             {/* Main Page */}
             <SafeAreaView style={styles.wrap} >
                 {/* Header */}
-                <View style={styles.homeHeader}>
+                <View style={globals.header}>
                     {/* Logo */}
                     <View style={styles.logoContainer}>
                         <View style={styles.logoWrapper}>
@@ -111,7 +142,9 @@ const Home = (props) => {
                 <ScrollView style={styles.homeContent}>
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Types of Racism" /></View>
-                        <Chip text="more" />
+                        <Chip onPress={() => {
+                            props.navigation.navigate('Racism')
+                        }} text="more" />
                     </View>
                     <View style={styles.racisms}>
                         {TYPES.map((c, i) => {
@@ -122,7 +155,9 @@ const Home = (props) => {
                     </View>
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Newsfeed" /></View>
-                        <Chip text="more" />
+                        <Chip onPress={() => {
+                            props.navigation.navigate('Newsfeed')
+                        }} text="more" />
                     </View>
                     <ScrollView horizontal>
                         {NEWSFEED.map((c, i) => (
@@ -151,19 +186,6 @@ var styles = StyleSheet.create({
     wrap: {
         height: '100%',
         width: '100%',
-    },
-    homeHeader: {
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        padding: 20,
-        boxShadow: "0px 0px 39px -22px rgba(0, 0, 0, 0.25)",
-        backgroundColor: "#ffffff",
-        overflow: "visible",
-        borderBottomEndRadius: 30,
-        borderBottomStartRadius: 30
     },
     logoContainer: {
         width: '100%',

@@ -4,7 +4,7 @@ import Typography from "../Typography/Typography";
 
 /**
  * 
- * @param {String} variant for text, "primary" = light
+ * @param {String} variant for text, "primary" = orange
  * @param {String} text display text
  * @returns 
  */

@@ -1,25 +1,27 @@
 import React, { useState } from "react";
-import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
+import { TextInput, StyleSheet, View } from 'react-native';
 import Typography from "../Typography/Typography";
 
 /**
  * 
- * @param {String} keyboardType enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search', 'visible-password')
+ * @param {String} type enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad', 'decimal-pad', 'twitter', 'web-search', 'visible-password')
  * @param {String} label placeholder / label
- * @param {Number} numberOfLines for textarea inputs
+ * @param {String} lc label color - "light" : "dark"
+ * @param {String} ic input color - "light" : "dark"
+ * @param {Number} nol (numberOfLines) for textarea inputs
+ * @param {Boolean} ml (multiline) text area (true) or default input (false)
  */
 const InputText = (props) => {
-    const [inputHeight, setInputHeight] = useState(50)
-    console.log(props)
+    const [inputHeight, setInputHeight] = useState(90)
     return (
         <View style={styles.container}>
-            <Typography text={props.label} variant="label" />
+            <Typography c={props.lc} text={props.label} variant="label" />
             <TextInput
                 {...props}
-                multiline={true}
-                numberOfLines={props.numberOfLines > 1 ? props.numberOfLines : 1}
-                style={{ height: inputHeight, ...styles.input }}
-                keyboardType="numeric"
+                multiline={props.ml}
+                numberOfLines={props.nol > 1 ? props.nol : 1}
+                style={{color: props.ic === 'light' ? 'white' : 'black' ,...styles.input}}
+                keyboardType={props.type}
                 onContentSizeChange={e => setInputHeight(e.nativeEvent.contentSize.height)} // can help with autoheight but need to code it
             />
         </View>)
@@ -40,14 +42,15 @@ var styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        backgroundColor: "rgb(235, 235, 235)",
-        borderColor: "rgba(0, 0, 0, 0.05)",
+        backgroundColor: "rgba(135, 135, 135, 0.10)",
+        borderColor: "rgba(130, 130, 130, 0.15)",
         borderWidth: 1,
         borderRadius: 8,
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
+        
     }
 })
 

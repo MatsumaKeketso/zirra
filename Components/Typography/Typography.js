@@ -6,15 +6,16 @@ import { StyleSheet, Text, View } from 'react-native';
  * @param {String} variant "header" | "subHeader" | "caption" | "bodyOne" | "bodyTwo" | "button" | "label"
  * @param {String} priority "primary" | "secondary" for "button" variant
  * @param {String} text display text
+ * @param {String} c "light" |  "dark"
  * @returns 
  */
 
-const Typography = ({ variant, text, priority }) => {
+const Typography = ({ variant, text, priority, c }) => {
     switch (variant) {
         case 'header':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.header}>{text}</Text>
+                    <Text style={{ color: c === 'dark' ? "white" : "#1a1a1a", ...styles.header}}>{text}</Text>
                 </View>)
             break;
         case 'subHeader':
@@ -49,8 +50,10 @@ const Typography = ({ variant, text, priority }) => {
             break;
         case 'label':
             return (
+                // default text should be dark
+                // only when specidy light should color change
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.label}> {text} </Text>
+                    <Text style={{ color: c === 'dark' ? 'white' : "#1a1a1a", ...styles.label }}> {text} </Text>
                 </View>)
             break;
         case 'logo':
@@ -63,22 +66,20 @@ const Typography = ({ variant, text, priority }) => {
 const styles = StyleSheet.create({
     container: {
         marginBottom: 10,
-        marginTop: 10
+        marginTop: 10,
+        paddingLeft: 0
     },
     header: {
         width: "100%",
         overflow: "hidden",
-        fontWeight: "500",
         fontStyle: "normal",
-        fontFamily: "Montserrat",
-        color: "#1a1a1a",
+        fontFamily: "Montserrat-Light",
         fontSize: 36
     },
     subHeader: {
         flexShrink: 0,
-        fontWeight: "700",
         fontStyle: "normal",
-        fontFamily: "Montserrat",
+        fontFamily: "Montserrat-Bold",
         color: "#1a1a1a",
         fontSize: 20,
     },
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         flexShrink: 0,
         fontWeight: "400",
         fontStyle: "normal",
-        fontFamily: "Montserrat",
+        fontFamily: "Montserrat-Medium",
         color: "#828282",
         fontSize: 12,
     },
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     bodyTwo: {
-        fontWeight: "900",
         fontStyle: "normal",
         fontFamily: "Montserrat-Bold",
         color: "#ffffff",
@@ -106,9 +106,8 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     button: {
-        fontWeight: "900",
         fontStyle: "normal",
-        fontFamily: "Montserrat",
+        fontFamily: "Montserrat-SemiBold",
         fontSize: 14,
         textTransform: "uppercase",
         textAlign: 'center'
@@ -117,7 +116,6 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontStyle: "normal",
         fontFamily: "Montserrat-Medium",
-        color: "#1a1a1a",
         fontSize: 14,
     },
     logo: {

@@ -7,7 +7,11 @@ import Newsfeed from './Pages/Newsfeed';
 import Racism from './Pages/Racism';
 import ReadFeed from './Pages/ReadFeed';
 import Report from './Pages/Report';
+import { initializeApp } from 'firebase/app'
+import firebaseConfig from './base'
 const Stack = createNativeStackNavigator();
+initializeApp(firebaseConfig);
+// Navigation help : https://reactnative.dev/docs/navigation
 const App = () => {
   return (
     <NavigationContainer documentTitle={false}>
