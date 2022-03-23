@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react'
-import { Animated, View, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import React, { useState, useRef, useCallback } from 'react'
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import Typography from '../Typography/Typography'
-import CARD from '../racismData'
+import WebView from 'react-native-webview'
+import YoutubePlayer from "react-native-youtube-iframe";
 const CardLink = (props) => {
     return (<TouchableOpacity style={styles.linkMain}>
         <Typography variant="body1" text={props.label} />
@@ -14,6 +15,16 @@ const CardLink = (props) => {
  * @returns 
  */
 const RacismCard = (props) => {
+    const [playing, setPlaying] = useState(false);
+    const onStateChange = useCallback((state) => {
+        if (state === "ended") {
+            setPlaying(false);
+            Alert.alert("video has finished playing!");
+        }
+    }, []);
+    const togglePlaying = useCallback(() => {
+        setPlaying((prev) => !prev);
+    }, []);
     return (
         <View style={styles.main}>
             <TouchableOpacity {...props} style={styles.header}>
@@ -27,16 +38,23 @@ const RacismCard = (props) => {
 
                 {/* <Image style={{ width: 24, height: 24 }} source={require('../../assets/icons/black/expand_less.png')} /> */}
             </TouchableOpacity>
-            <Animated.View style={[styles.body, { height: props.activeRead ? 'auto' : 0 }]}>
+            <View style={[styles.body, { height: props.activeRead ? 'auto' : 0 }]}>
                 <Typography variant="body1" text={props.text} />
+                {props.activeRead && (<YoutubePlayer
+                    height={200}
+                    // play={playing}
+                    videoId={props.url}
+                // onChangeState={onStateChange}
+                />)}
+
                 <Typography variant="body2" text="Examples: " />
                 {
                     props.links.map((c, i) => {
-                        return (<CardLink label={c.label} />)
+                        return (<CardLink key={i} label={c.label} />)
                     })
                 }
 
-            </Animated.View>
+            </View>
 
 
         </View>
@@ -63,7 +81,8 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         paddingTop: 0,
         paddingBottom: 10,
-        top: 0
+        top: 0,
+        overflow: 'hidden'
     },
     line: {
         width: '50%',

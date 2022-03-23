@@ -15,7 +15,7 @@ import ProgressBar from '../Components/ProgressBar/ProgressBar'
 import { check, checkNotifications, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import CheckMark from '../Components/CheckMark/CheckMark'
 import DeviceInfo from 'react-native-device-info';
-
+import AlertBox from '../Components/AlertBox/AlertBox'
 const WIDTH = Dimensions.get('window').width
 const incidentFormData = {
     whatProvince: '',
@@ -233,7 +233,7 @@ const Report = (props) => {
         DeviceInfo.getFingerprint().then(res => {
             console.log(res, payload)
             firestore().collection('reports').add(payload).then((doc) => {
-             }).catch(err => console.log(err))
+            }).catch(err => console.log(err))
         })
         // 
     }
@@ -244,6 +244,7 @@ const Report = (props) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#FF7433" />
+            <AlertBox open={false} />
             <DatePicker
                 modal
                 mode='date'
@@ -297,7 +298,7 @@ const Report = (props) => {
                         <Typography variant="subHeader" text={activeSlide > 4 ? "Tell us about yourself" : "Incident Details"} />
                     </View>
                     <View>
-                        <Typography variant="body1" text={`Step ${activeSlide > 4 ? (activeSlide ) - 5 : activeSlide + 1} / ${activeSlide > 4 ? '2' : '5'}`} />
+                        <Typography variant="body1" text={`Step ${activeSlide > 4 ? (activeSlide) - 5 : activeSlide + 1} / ${activeSlide > 4 ? '2' : '5'}`} />
                     </View>
                 </View>
                 <ScrollView

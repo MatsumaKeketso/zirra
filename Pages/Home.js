@@ -143,13 +143,15 @@ const Home = (props) => {
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Types of Racism" /></View>
                         <Chip onPress={() => {
-                            props.navigation.navigate('Racism')
+                            props.navigation.navigate('Racism', {active: ''})
                         }} text="more" />
                     </View>
                     <View style={styles.racisms}>
                         {TYPES.map((c, i) => {
                             return (
-                                <TypesCard key={i} bg={c.bg} image={c.icon} label={c.label} />
+                                <TypesCard onPress={() => {
+                                    props.navigation.navigate('Racism', { active: c.label })
+                                }} key={i} bg={c.bg} image={c.icon} label={c.label} />
                             )
                         })}
                     </View>

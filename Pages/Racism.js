@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, SafeAreaView, StyleSheet, Image, ScrollView, Text, Modal } from 'react-native'
 import RacismCard from '../Components/RacismCard/RacismCard'
 import CARD from '../Components/racismData'
@@ -6,9 +6,17 @@ import SpecialButton from '../Components/SpecialButton/SpecialButton'
 import Typography from '../Components/Typography/Typography'
 import globals from './globals.styles'
 import Hotspots from '../Components/Hotspots/Hotspots'
-const Racism = () => {
-    const [activeRead, setActiveRead] = useState(null)
+const Racism = (props) => {
+    const [activeRead, setActiveRead] = useState('')
     const [openModal, setModal] = useState(false)
+    useEffect(() => {
+        console.log('Reading: ', props.route.params.active)
+        if (props.route.params.active) {
+            setTimeout(() => {
+                setActiveRead(props.route.params.active)
+            }, 300);
+        }
+    }, [])
     return (
         <View style={styles.container}>
             <Modal animationType="slide"
@@ -34,11 +42,11 @@ const Racism = () => {
                         <Typography variant="body1" text="prejudice, discrimination, or antagonism by an individual, community, or institution against a person or people on the basis of their membership of a particular racial or ethnic group, typically one that is a minority or marginalized." />
                         {CARD.map((c, i) => {
                             return (
-                                <RacismCard links={c.links} key={i} title={c.title} text={c.text} activeRead={activeRead === i} onPress={() => {
-                                    if (activeRead === i) {
-                                        setActiveRead(null)
+                                <RacismCard url={c.videoUrl} links={c.links} key={i} title={c.title} text={c.text} activeRead={activeRead === c.title} onPress={() => {
+                                    if (activeRead === c.title) {
+                                        setActiveRead('')
                                     } else {
-                                        setActiveRead(i)
+                                        setActiveRead(c.title)
                                     }
                                 }} />
                             )

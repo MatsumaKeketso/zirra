@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Image, ImageBackground, StyleSheet } from 'reac
 import Typography from '../Typography/Typography'
 const TypesCard = (props) => {
     return (
-        <TouchableOpacity activeOpacity={0.9} style={styles.container}>
+        <TouchableOpacity {...props} activeOpacity={0.9} style={styles.container}>
             <ImageBackground resizeMode='cover' style={styles.bg} source={props.bg}>
                 <Image resizeMode='contain' style={styles.image} source={props.image} />
             </ImageBackground>

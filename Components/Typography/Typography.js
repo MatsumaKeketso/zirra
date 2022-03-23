@@ -15,31 +15,31 @@ const Typography = ({ variant, text, priority, c }) => {
         case 'header':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={{ color: c === 'dark' ? "white" : "#1a1a1a", ...styles.header}}>{text}</Text>
+                    <Text style={{ color: c === 'dark' ? "white" : "#1a1a1a", ...styles.header }}>{text}</Text>
                 </View>)
             break;
         case 'subHeader':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.subHeader}>{text}</Text>
+                    <Text style={{ color: c === 'light' ? 'white' : "#1a1a1a", ...styles.subHeader }}>{text}</Text>
                 </View>)
             break;
         case 'caption':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.caption}>{text}</Text>
+                    <Text style={{ color: c === 'light' ? "#fff" : "#828282", ...styles.caption }}>{text}</Text>
                 </View>)
             break;
         case 'body1':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={styles.bodyOne}>{text}</Text>
+                    <Text style={{ color: c === "light" ? '#fff' : "#262626", ...styles.bodyOne }}>{text}</Text>
                 </View>)
             break;
         case 'body2':
             return (
                 <View style={{ width: '100%', ...styles.container }}>
-                    <Text style={{color: c === 'light' ? "#ffffff" : 'black' ,...styles.bodyTwo}}>{text}</Text>
+                    <Text style={{ color: c === 'light' ? "#ffffff" : 'black', ...styles.bodyTwo }}>{text}</Text>
                 </View>)
             break;
         case 'button':
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
         flexShrink: 0,
         fontStyle: "normal",
         fontFamily: "Montserrat-Bold",
-        color: "#1a1a1a",
         fontSize: 20,
     },
     caption: {
@@ -88,15 +87,14 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         fontStyle: "normal",
         fontFamily: "Montserrat-Medium",
-        color: "#828282",
         fontSize: 12,
     },
     bodyOne: {
         fontWeight: "400",
         fontStyle: "normal",
         fontFamily: "Montserrat-Regular",
-        color: "#262626",
         fontSize: 14,
+        lineHeight: 25
     },
     bodyTwo: {
         fontStyle: "normal",
