@@ -12,14 +12,17 @@ import Typography from '../Typography/Typography'
 const AlertBox = (props) => {
     return (
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={props.open}
+            onDismiss={() => {
+                console.log("Modal has been closed.", props);
+            }}
         >
             <View style={styles.container}>
                 <View style={styles.main}>
-                    <Typography variant="subHeader" text="Thank you for this report" />
-                    <Typography variant="body1" text="Your report has been saved." />
+                    <Typography variant="subHeader" text={props.header} />
+                    <Typography variant="body1" text={props.text} />
                     <View style={{ height: 70 }}>
                         <InputButton {...props} variant="primary" text="Okay" />
                     </View>
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     main: {
-        width: '90%',
+        width: '76%',
         height: "auto", /* 198px */
 
         padding: 20,
@@ -49,4 +52,4 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     }
 })
-export default AlertBox
+export default AlertBox;

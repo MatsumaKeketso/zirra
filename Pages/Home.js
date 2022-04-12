@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     SafeAreaView,
     ScrollView,
     StyleSheet,
     View,
-    Dimensions,
     Image,
     Modal,
     StatusBar,
-    BackHandler,
-    Alert
+    Animated
 } from 'react-native';
 import Swiper from "react-native-swiper";
 import InputButton from "../Components/Button/Button";
@@ -52,7 +50,36 @@ const NEWSFEED = [{
 const Home = (props) => {
     const [aboutOpen, setAboutOpen] = useState(false)
     const [hotspotModal, setHotspotModal] = useState(false)
+    const [viewHeight, setViewHeight] = useState(false)
+    const heightAnim = useRef(new Animated.Value(95)).current
 
+    const hideText = () => {
+        Animated.timing(
+            heightAnim,
+            {
+                toValue: 0,
+                useNativeDriver: false,
+                duration: 300
+            }
+        ).start()
+    }
+    const showText = () => {
+        Animated.timing(
+            heightAnim,
+            {
+                toValue: 95,
+                useNativeDriver: false,
+                duration: 300
+            }
+        ).start()
+    }
+    const onChange = (nativeEvent) => {
+        if (nativeEvent.contentOffset.y > 20) {
+            hideText()
+        } else {
+            showText()
+        }
+    }
     useEffect(() => {
         // const backHandler = BackHandler.addEventListener(
         //     "hardwareBackPress",
@@ -123,7 +150,12 @@ const Home = (props) => {
 
                     {/* Text */}
                     <Typography variant="header" text="Zimele Racism Reporting" />
-                    <Typography variant="body1" text="This App works as a racism incident reporting tool that allows individuals to report cases of racism countrywide." />
+                    <Animated.View style={{ height: heightAnim, width: '100%', overflow: 'hidden' }}>
+                        <Typography variant="body1" text="This App works as a racism incident reporting tool that allows individuals to report cases of racism countrywide." />
+                    </Animated.View>
+
+
+
                     {/* ... */}
 
                     {/* Buttons */}
@@ -139,14 +171,14 @@ const Home = (props) => {
                 {/* ... */}
 
                 {/* Scroll */}
-                <ScrollView style={styles.homeContent}>
+                <ScrollView onScroll={({ nativeEvent }) => onChange(nativeEvent)} style={styles.homeContent}>
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Types of Racism" /></View>
                         <Chip onPress={() => {
-                            props.navigation.navigate('Racism', {active: ''})
+                            props.navigation.navigate('Racism', { active: '' })
                         }} text="more" />
                     </View>
-                    <View style={styles.racisms}>
+                    <ScrollView horizontal style={{width: '100%', paddingTop: 5, paddingBottom: 5}}>
                         {TYPES.map((c, i) => {
                             return (
                                 <TypesCard onPress={() => {
@@ -154,7 +186,7 @@ const Home = (props) => {
                                 }} key={i} bg={c.bg} image={c.icon} label={c.label} />
                             )
                         })}
-                    </View>
+                    </ScrollView>
                     <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Newsfeed" /></View>
                         <Chip onPress={() => {
@@ -163,7 +195,9 @@ const Home = (props) => {
                     </View>
                     <ScrollView horizontal>
                         {NEWSFEED.map((c, i) => (
-                            <NewsfeedCard key={c.label} label={c.label} bg={c.BG} />
+                            <NewsfeedCard onPress={() => {
+                                props.navigation.navigate('Newsfeed')
+                            }} key={c.label} label={c.label} bg={c.BG} />
                         ))}
 
                     </ScrollView>

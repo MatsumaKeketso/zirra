@@ -10,6 +10,7 @@ import Typography from "../Typography/Typography";
  * @param {String} ic input color - "light" : "dark"
  * @param {Number} nol (numberOfLines) for textarea inputs
  * @param {Boolean} ml (multiline) text area (true) or default input (false)
+ * @param {Boolean} disabled disable or enable input (false by default)
  */
 const InputText = (props) => {
     const [inputHeight, setInputHeight] = useState(90)
@@ -18,9 +19,11 @@ const InputText = (props) => {
             <Typography c={props.lc} text={props.label} variant="label" />
             <TextInput
                 {...props}
+                editable={!props.disabled }
+                // selectTextOnFocus={props.disabled}
                 multiline={props.ml}
                 numberOfLines={props.nol > 1 ? props.nol : 1}
-                style={{color: props.ic === 'light' ? 'white' : 'black' ,...styles.input}}
+                style={{ color: props.ic === 'light' ? 'white' : 'black', ...styles.input }}
                 keyboardType={props.type}
                 onContentSizeChange={e => setInputHeight(e.nativeEvent.contentSize.height)} // can help with autoheight but need to code it
             />
@@ -50,7 +53,7 @@ var styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
-        
+
     }
 })
 

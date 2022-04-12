@@ -4,11 +4,11 @@ import Typography from '../Typography/Typography'
 const TypesCard = (props) => {
     return (
         <TouchableOpacity {...props} activeOpacity={0.9} style={styles.container}>
-            <ImageBackground resizeMode='cover' style={styles.bg} source={props.bg}>
+            <View resizeMode='cover' style={styles.bg} source={props.bg}>
                 <Image resizeMode='contain' style={styles.image} source={props.image} />
-            </ImageBackground>
+            </View>
             <View style={styles.details}>
-                <Typography c="light" variant="body2" text={props.label} />
+                <Typography variant="body2" text={props.label} />
             </View>
         </TouchableOpacity>
     )
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "#1a1a1a",
+        backgroundColor: "rgba(255, 255, 255, 1)",
         overflow: "hidden",
         borderRadius: 8,
-        marginLeft: 5,
-        marginRight: 5,
+        margin: 5,
+        elevation: 1
     },
     bg: {
         width: '100%',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     image: {
-        width: 40,
+        width: 60,
         // height: 72,
     },
     details: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: "#262626",
+        backgroundColor: "rgba(0, 0, 0, 0.02)",
     }
 })
 export default TypesCard

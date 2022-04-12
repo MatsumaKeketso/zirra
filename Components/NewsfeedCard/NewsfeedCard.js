@@ -1,9 +1,8 @@
 import React from 'react'
-import { TouchableOpacity, View, Image, ImageBackground, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, ImageBackground, StyleSheet } from 'react-native'
 import Typography from '../Typography/Typography'
 
 /**
- * 
  * @param {Number} bg image background 
  * @param {String} label display text
  * @returns 
@@ -11,8 +10,8 @@ import Typography from '../Typography/Typography'
 
 const NewsfeedCard = (props) => {
   return (
-    <TouchableOpacity activeOpacity={0.9} style={styles.container}>
-      <ImageBackground resizeMode='cover' style={styles.bg} source={{uri: props.bg}}>
+    <TouchableOpacity {...props} activeOpacity={0.9} style={styles.container}>
+      <ImageBackground resizeMode='cover' style={styles.bg} source={{ uri: props.bg }}>
 
       </ImageBackground>
       <View style={styles.details}>

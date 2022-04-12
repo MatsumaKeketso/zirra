@@ -26,9 +26,10 @@ const Typography = ({ variant, text, priority, c }) => {
             break;
         case 'caption':
             return (
-                <View style={{ width: '100%', ...styles.container }}>
+                <View style={{ ...styles.container }}>
                     <Text style={{ color: c === 'light' ? "#fff" : "#828282", ...styles.caption }}>{text}</Text>
-                </View>)
+                </View>
+            )
             break;
         case 'body1':
             return (
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 10,
         marginTop: 10,
-        paddingLeft: 0
+        paddingLeft: 0,
     },
     header: {
         width: "100%",
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     caption: {
+        height: 'auto', flex: 1,
         flexShrink: 0,
         fontWeight: "400",
         fontStyle: "normal",
