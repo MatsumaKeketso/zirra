@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         width: "100%",
         overflow: "hidden",
         fontStyle: "normal",
-        fontFamily: "Montserrat-Light",
+        fontFamily: "Montserrat-Bold",
         fontSize: 36
     },
     subHeader: {

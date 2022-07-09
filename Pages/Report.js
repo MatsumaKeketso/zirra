@@ -24,6 +24,8 @@ const WIDTH = Dimensions.get('window').width
 const incidentFormData = {
     whatProvince: '',// *
     whatTown: '', // *
+    occuredAtSchool: '', // *
+    whichSchool: '',
     additionalDetails: '',
     video: '',
     image: '',
@@ -245,7 +247,7 @@ const Report = (props) => {
             console.warn(err);
         }
     };
-
+    const swipeMessage = '<<< Swipe left to the next step.'
     const onChange = (nativeEvent) => {
         const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width)
         if (slide != activeSlide) {
@@ -254,7 +256,15 @@ const Report = (props) => {
     }
     const submitInfo = (payload) => {
         setLoader(true)
-        firestore().collection('reports').add(payload).then((doc) => {
+        const a = new Date()
+        const cYr = a.getFullYear()
+        const b = new Date(payload.dateOfBirth)
+        const uYr = b.getFullYear()
+        const age = uYr - cYr
+        const over18 = age > 18 ? 'Yes' : 'No'
+
+        const finalData = { isOver18: over18, ...payload }
+        firestore().collection('reports').add(finalData).then((doc) => {
             firestore().collection('reports').doc(doc.id).set({ image: imageURL }, { merge: true }).then(res => {
                 setLoader(false)
                 setNavBack(true)
@@ -338,8 +348,6 @@ const Report = (props) => {
                                                 </View>
                                             ) : null
                                         }
-
-
                                         <InputText value={values.whatTown} onChangeText={handleChange('whatTown')} ml={true} label="In what town/city did it happen? *" />
                                         {errors.whatTown && touched.whatTown ?
                                             (
@@ -348,7 +356,31 @@ const Report = (props) => {
                                                 </View>
                                             ) : null
                                         }
+                                        <View style={{ Width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
+                                            <Typography text={incidentRadio.occuredAtSchool.title} variant="label" />
+                                            {
+                                                incidentRadio.occuredAtSchool.options.map((c, i) => {
+                                                    return (<Radionbutton active={values.occuredAtSchool === c ? true : false} key={i} onPress={() => setFieldValue('occuredAtSchool', c)} label={c} />)
+                                                })
+                                            }
+                                            {errors.occuredAtSchool && touched.occuredAtSchool ?
+                                                (
+                                                    <View style={styles.errors}>
+                                                        <Typography c="light" variant="caption" text={errors.occuredAtSchool} />
+                                                    </View>
+                                                ) : null
+                                            }
+                                        </View>
+                                        {values.occuredAtSchool === 'Yes' ? (<InputText value={values.whichSchool} onChangeText={handleChange('whichSchool')} ml={true} label=" Which school did this incident occur in?" />) : (null)}
+                                        {errors.whichSchool && touched.whichSchool ?
+                                            (
+                                                <View style={styles.errors}>
+                                                    <Typography c="light" variant="caption" text={errors.whichSchool} />
+                                                </View>
+                                            ) : null
+                                        }
                                         <InputText value={values.additionalDetails} onChangeText={handleChange('additionalDetails')} ml={true} label="Additional detail to where did incident/s happen?" />
+
                                         {/* Media upload */}
                                         <View >
                                             <Typography variant="label" text="Upload Media" />
@@ -362,6 +394,17 @@ const Report = (props) => {
                                             </View>
                                         </View>
                                         {imageProgress > 0 && (<ProgressBar state={imageUploadState} progress={imageProgress} />)}
+
+                                        <Typography text={swipeMessage} variant="subHeader" />
+                                    </ScrollView>
+
+                                </View>
+                            </View>
+                            {/* ... */}
+                            {/* Slide 2 */}
+                            <View style={styles.slide}>
+                                <View style={styles.slideDetais}>
+                                    <ScrollView>
                                         <View style={{ Width: '100%', display: 'flex', justifyContent: 'flex-start' }}>
                                             <Typography text={incidentRadio.isHappening.title} variant="label" />
                                             {
@@ -377,16 +420,6 @@ const Report = (props) => {
                                                 ) : null
                                             }
                                         </View>
-
-                                    </ScrollView>
-
-                                </View>
-                            </View>
-                            {/* ... */}
-                            {/* Slide 2 */}
-                            <View style={styles.slide}>
-                                <View style={styles.slideDetais}>
-                                    <ScrollView>
                                         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
                                             <View style={{ flex: 1, height: 'auto' }}>
                                                 <DatePicker
@@ -437,7 +470,7 @@ const Report = (props) => {
                                         {/* ... */}
                                         {values.isTwoPeople === 'Yes' && (<InputText value={values.secondPersonFullName} onChangeText={handleChange('secondPersonFullName')} ml={true} label="Second persons First and Last name*" />)}
 
-
+                                        <Typography text={swipeMessage} variant="subHeader" />
                                     </ScrollView>
 
                                 </View>
@@ -466,6 +499,7 @@ const Report = (props) => {
                                             }
                                         </View>
                                         {/* ... */}
+                                        <Typography text={swipeMessage} variant="subHeader" />
                                     </ScrollView>
 
                                 </View>
@@ -505,6 +539,7 @@ const Report = (props) => {
                                             }
                                         </View>
                                         {/* ... */}
+                                        <Typography text={swipeMessage} variant="subHeader" />
                                     </ScrollView>
                                 </View>
 
@@ -546,6 +581,7 @@ const Report = (props) => {
                                             }
                                         </View>
                                         {/* ... */}
+                                        <Typography text={swipeMessage} variant="subHeader" />
                                     </ScrollView>
                                 </View>
 
@@ -698,8 +734,9 @@ const Report = (props) => {
                                             {values.gender === 'Other' && (<InputText ic="light" type="phone-pad" lc="dark" value={values.otherGender} onChangeText={(val) => setFieldValue('otherGender', val)} ml={true} label="Please Specify *" />)}
 
                                         </View>
-
+                                        <Typography c="light" text={swipeMessage} variant="subHeader" />
                                     </ScrollView>
+
                                 </View>
 
                             </View>

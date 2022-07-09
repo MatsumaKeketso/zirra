@@ -36,8 +36,8 @@ const Racism = (props) => {
                         <Image style={{ width: 44, height: 44 }} source={require("../assets/images/logo.png")} />
                     </View>
                 </View>
-                <View style={{ flex: 1, padding: 20 }}>
-                    <ScrollView >
+                <View style={{ flex: 1, padding: 0, borderRadius: 20, overflow: 'hidden' }}>
+                    <ScrollView contentContainerStyle={{ padding: 20 }} >
                         <Typography variant="subHeader" text="Racism" />
                         <Typography variant="body1" text="prejudice, discrimination, or antagonism by an individual, community, or institution against a person or people on the basis of their membership of a particular racial or ethnic group, typically one that is a minority or marginalized." />
                         {CARD.map((c, i) => {

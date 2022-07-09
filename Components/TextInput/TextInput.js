@@ -48,7 +48,7 @@ var styles = StyleSheet.create({
         backgroundColor: "rgba(135, 135, 135, 0.10)",
         borderColor: "rgba(130, 130, 130, 0.15)",
         borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 20,
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 15,

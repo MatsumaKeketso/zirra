@@ -3,6 +3,10 @@ const incidentRadio = {
         title: "Is it still hapenning?*",
         options: ["Yes", 'No', 'Not Sure']
     },
+    occuredAtSchool: {
+        title: 'Did this incident occur at a school?',
+        options: ['Yes', 'No']
+    },
     personDetais: {
         title: "Do you know the person's details?",
         options: ['Yes', 'No']

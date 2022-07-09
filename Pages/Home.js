@@ -173,41 +173,42 @@ const Home = (props) => {
                 {/* Scroll */}
                 <ScrollView onScroll={({ nativeEvent }) => onChange(nativeEvent)} style={styles.homeContent}>
                     <View style={styles.typesHeader}>
-                        <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Types of Racism" /></View>
-                        <Chip onPress={() => {
-                            props.navigation.navigate('Racism', { active: '' })
-                        }} text="more" />
+                        <View style={{ flex: 1, height: 'auto' }}>
+                            <Typography variant="label" text="Types of Racism" />
+                        </View>
+
                     </View>
-                    <ScrollView horizontal style={{width: '100%', paddingTop: 5, paddingBottom: 5}}>
-                        {TYPES.map((c, i) => {
-                            return (
-                                <TypesCard onPress={() => {
-                                    props.navigation.navigate('Racism', { active: c.label })
-                                }} key={i} bg={c.bg} image={c.icon} label={c.label} />
-                            )
-                        })}
-                    </ScrollView>
-                    <View style={styles.typesHeader}>
+                    {TYPES.map((c, i) => {
+                        return (
+                            <TypesCard index={i} onPress={() => {
+                                props.navigation.navigate('Racism', { active: c.label })
+                            }} key={i} bg={c.bg} image={c.icon} label={c.label} />
+                        )
+                    })}
+                    {/* <ScrollView horizontal style={{ width: '100%', paddingTop: 5, paddingBottom: 5 }}>
+
+                    </ScrollView> */}
+                    {/* <View style={styles.typesHeader}>
                         <View style={{ flex: 1, height: 'auto' }}><Typography variant="label" text="Newsfeed" /></View>
                         <Chip onPress={() => {
                             props.navigation.navigate('Newsfeed')
                         }} text="more" />
-                    </View>
-                    <ScrollView horizontal>
+                    </View> */}
+                    {/* <ScrollView horizontal>
                         {NEWSFEED.map((c, i) => (
                             <NewsfeedCard onPress={() => {
                                 props.navigation.navigate('Newsfeed')
                             }} key={c.label} label={c.label} bg={c.BG} />
                         ))}
 
-                    </ScrollView>
+                    </ScrollView> */}
                 </ScrollView>
                 {/* ... */}
 
                 {/* Hotspot Button */}
-                <View style={styles.buttonWrapper}>
+                {/* <View style={styles.buttonWrapper}>
                     <InputButton onPress={() => setHotspotModal(true)} text="REPORT HOTPOTS" />
-                </View>
+                </View> */}
                 {/* ... */}
             </SafeAreaView>
         </View>

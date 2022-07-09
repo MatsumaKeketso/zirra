@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         padding: 20,
         backgroundColor: "#ffffff",
-        borderRadius: 8,
+        borderRadius: 20,
         margin: 10
     },
     foundersWrapper: {

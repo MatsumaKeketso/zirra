@@ -1,16 +1,22 @@
 import React from 'react'
 import { TouchableOpacity, View, Image, ImageBackground, StyleSheet } from 'react-native'
 import Typography from '../Typography/Typography'
+import LinearGradient from 'react-native-linear-gradient';
 const TypesCard = (props) => {
+    const colors = [['#FC7272', '#DF1515'], ['#1ED2FC', '#015FDF'], ['#9FE99F', '#2C8B2C']]
+    
     return (
-        <TouchableOpacity {...props} activeOpacity={0.9} style={styles.container}>
-            <View resizeMode='cover' style={styles.bg} source={props.bg}>
-                <Image resizeMode='contain' style={styles.image} source={props.image} />
-            </View>
-            <View style={styles.details}>
-                <Typography variant="body2" text={props.label} />
-            </View>
-        </TouchableOpacity>
+        <LinearGradient colors={colors[props.index]} style={styles.linearGradient}>
+            <TouchableOpacity {...props} activeOpacity={0.9} style={styles.container}>
+                <View resizeMode='cover' style={styles.bg} source={props.bg}>
+                    <Image resizeMode='contain' style={styles.image} source={props.image} />
+                </View>
+                <View style={styles.details}>
+                    <Typography variant="body2" text={props.label} />
+                </View>
+            </TouchableOpacity>
+        </LinearGradient>
+
     )
 }
 const styles = StyleSheet.create({
@@ -19,17 +25,23 @@ const styles = StyleSheet.create({
         flex: 1,
         height: "auto", /* 174px */
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
         backgroundColor: "rgba(255, 255, 255, 1)",
         overflow: "hidden",
-        borderRadius: 8,
-        margin: 5,
-        elevation: 1
+        borderRadius: 19,
+        marginVertical: 1,
+        marginLeft: 1,
+        marginRight: 10,
+        elevation: 1,
+        paddingHorizontal: 20
+    },
+    linearGradient: {
+        borderRadius: 20,
+        marginBottom: 10,
     },
     bg: {
-        width: '100%',
         height: 100,
         display: "flex",
         flexDirection: "column",
@@ -49,7 +61,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 10,
         paddingRight: 10,
-        backgroundColor: "rgba(0, 0, 0, 0.02)",
     }
 })
 export default TypesCard
